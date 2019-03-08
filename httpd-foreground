@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+curl -o /getRequiredHead.html  http://www.eea.europa.eu/templates/v2/getRequiredHead
+
+curl -o /getHeader.html http://www.eea.europa.eu/templates/v2/getHeader
+
+curl -o /getFooter.html http://www.eea.europa.eu/templates/v2/getFooter
+
+cat /getRequiredHead.html > /usr/local/apache2/htdocs/index.html
+
+cat /getHeader.html >> /usr/local/apache2/htdocs/index.html
+
+cat /index.html >> /usr/local/apache2/htdocs/index.html
+
+cat /getFooter.html >> /usr/local/apache2/htdocs/index.html
+
+
+
+# Apache gets grumpy about PID files pre-existing
+rm -f /usr/local/apache2/logs/httpd.pid
+
+exec httpd -DFOREGROUND
